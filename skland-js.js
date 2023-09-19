@@ -46,7 +46,12 @@ export class skland extends plugin {
                 let ret = await fetch(signUrl, {
                     method: 'POST', headers: {
                         'Cred': credMsg,
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'User-Agent': 'Skland/1.0.1 (com.hypergryph.skland; build\': \'100001014; Android 31; ) Okhttp/4.11.0',
+                        'vCode': '100001014',
+                        'vName': '1.0.1',
+                        'dId': 'de9759a5afaa634f',
+                        'platform': '1'
                     },
                     body: data
                 })
@@ -109,29 +114,34 @@ export class skland extends plugin {
      */
     async checkCred (credMsg) {
         logger.info("开始校验cred是否可用"+credMsg)
-        logger.info('校验成功，你的Cred值为'+credMsg)
-        this.setskdCfg('cred',credMsg)
-        this.matchUserMsg(credMsg)
-        // let checkUrl = 'https://zonai.skland.com/api/v1/user/check'
-        // try {
-        //     let ret = await fetch(checkUrl, {
-        //         method: 'GET', headers: {
-        //             'Cred': credMsg
-        //         }
-        //     })
-        //     ret = await ret.json();
-        //     logger.info(JSON.stringify(ret))
-        //     var credCode = ret.code
-        //     logger.info('credCode'+credCode)
-        //     if (credCode===0){
-        //
-        //     }else {
-        //         this.e.reply('校验失败，你的Cred错误或已过期', false, { recallMsg: 0 });
-        //     }
-        // }
-        // catch (error) {
-        //     return false
-        // }
+
+        let checkUrl = 'https://zonai.skland.com/api/v1/user/check'
+        try {
+            let ret = await fetch(checkUrl, {
+                method: 'GET', headers: {
+                    'Cred': credMsg,
+                    'User-Agent': 'Skland/1.0.1 (com.hypergryph.skland; build\': \'100001014; Android 31; ) Okhttp/4.11.0',
+                    'vCode': '100001014',
+                    'vName': '1.0.1',
+                    'dId': 'de9759a5afaa634f',
+                    'platform': '1'
+                }
+            })
+            ret = await ret.json();
+            logger.info(JSON.stringify(ret))
+            var credCode = ret.code
+            logger.info('credCode'+credCode)
+            if (credCode===0){
+                logger.info('校验成功，你的Cred值为'+credMsg)
+                this.setskdCfg('cred',credMsg)
+                this.matchUserMsg(credMsg)
+            }else {
+                this.e.reply('校验失败，你的Cred错误或已过期', false, { recallMsg: 0 });
+            }
+        }
+        catch (error) {
+            return false
+        }
     }
 
     /**
@@ -146,6 +156,11 @@ export class skland extends plugin {
             let ret = await fetch(userUrl, {
                 method: 'GET', headers: {
                     'Cred': credMsg,
+                    'User-Agent': 'Skland/1.0.1 (com.hypergryph.skland; build\': \'100001014; Android 31; ) Okhttp/4.11.0',
+                    'vCode': '100001014',
+                    'vName': '1.0.1',
+                    'dId': 'de9759a5afaa634f',
+                    'platform': '1'
                 }
             })
             ret = await ret.json();
@@ -190,7 +205,12 @@ export class skland extends plugin {
             let oAuth2Res = await fetch(grant, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'User-Agent': 'Skland/1.0.1 (com.hypergryph.skland; build\': \'100001014; Android 31; ) Okhttp/4.11.0',
+                    'vCode': '100001014',
+                    'vName': '1.0.1',
+                    'dId': 'de9759a5afaa634f',
+                    'platform': '1'
                 },
                 body: param
             })
@@ -227,7 +247,12 @@ export class skland extends plugin {
             let credRes = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'User-Agent': 'Skland/1.0.1 (com.hypergryph.skland; build\': \'100001014; Android 31; ) Okhttp/4.11.0',
+                    'vCode': '100001014',
+                    'vName': '1.0.1',
+                    'dId': 'de9759a5afaa634f',
+                    'platform': '1'
                 },
                 body: param
             })
