@@ -109,28 +109,29 @@ export class skland extends plugin {
      */
     async checkCred (credMsg) {
         logger.info("开始校验cred是否可用"+credMsg)
-        let checkUrl = 'https://zonai.skland.com/api/v1/user/check'
-        try {
-            let ret = await fetch(checkUrl, {
-                method: 'GET', headers: {
-                    'Cred': credMsg
-                }
-            })
-            ret = await ret.json();
-            logger.info(JSON.stringify(ret))
-            var credCode = ret.code
-            logger.info('credCode'+credCode)
-            if (credCode===0){
-                logger.info('校验成功，你的Cred值为'+credMsg)
-                this.setskdCfg('cred',credMsg)
-                this.matchUserMsg(credMsg)
-            }else {
-                this.e.reply('校验失败，你的Cred错误或已过期', false, { recallMsg: 0 });
-            }
-        }
-        catch (error) {
-            return false
-        }
+        logger.info('校验成功，你的Cred值为'+credMsg)
+        this.setskdCfg('cred',credMsg)
+        this.matchUserMsg(credMsg)
+        // let checkUrl = 'https://zonai.skland.com/api/v1/user/check'
+        // try {
+        //     let ret = await fetch(checkUrl, {
+        //         method: 'GET', headers: {
+        //             'Cred': credMsg
+        //         }
+        //     })
+        //     ret = await ret.json();
+        //     logger.info(JSON.stringify(ret))
+        //     var credCode = ret.code
+        //     logger.info('credCode'+credCode)
+        //     if (credCode===0){
+        //
+        //     }else {
+        //         this.e.reply('校验失败，你的Cred错误或已过期', false, { recallMsg: 0 });
+        //     }
+        // }
+        // catch (error) {
+        //     return false
+        // }
     }
 
     /**
